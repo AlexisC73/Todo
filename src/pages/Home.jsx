@@ -56,8 +56,15 @@ export default function Home() {
 
   const submitForm = async (e) => {
     e.preventDefault()
-    await addTodo(newTodo)
-    setNewTodo('')
+    try {
+      if (!newTodo) {
+        throw new Error('Todo can not be empty')
+      }
+      await addTodo(newTodo)
+      setNewTodo('')
+    } catch (e) {
+      console.dir(e.message)
+    }
   }
   return (
     <Layout>
